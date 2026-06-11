@@ -69,7 +69,7 @@
     .capture input { flex:1; font-family:var(--font-body); font-size:15px; color:var(--bosque); background:#fff; border:1px solid var(--border); border-radius:var(--r-sm); padding:15px 16px; width:100%; }
     .capture input::placeholder { color:var(--fg-3); }
     .capture input:focus { outline:none; border:1.5px solid var(--matcha); }
-    .capture .f-name { margin-bottom:10px; }
+    .capture .f-names { margin-bottom:10px; }
     .capture .micro { display:flex; align-items:center; gap:7px; margin-top:11px; font-size:13px; color:var(--fg-3); }
     .capture .micro .ic { width:15px; height:15px; color:var(--matcha); }
     .capture .ok { display:none; align-items:center; gap:10px; background:var(--matcha-tint); color:var(--matcha-deep); border-radius:var(--r-md); padding:16px 18px; font-size:15px; font-weight:500; }
@@ -193,7 +193,10 @@
 
         <div class="capture" id="capture-hero">
           <form onsubmit="return meluSubmit(event,'capture-hero')">
-            <input type="text" name="name" required placeholder="Tu nombre" aria-label="Tu nombre" class="f-name" />
+            <div class="row f-names">
+              <input type="text" name="first_name" required placeholder="Nombre" aria-label="Nombre" />
+              <input type="text" name="last_name" required placeholder="Apellido" aria-label="Apellido" />
+            </div>
             <div class="row">
               <input type="email" name="email" required placeholder="tu@correo.com" aria-label="Tu correo" />
               <button type="submit" class="btn btn-primary btn-lg">Quiero el recetario</button>
@@ -274,7 +277,10 @@
         <p>Empezamos a las seis. Fermentamos lento para que el pan sepa a pan. Ahora esas mismas recetas son tuyas—gratis, a cambio de un correo.</p>
         <div class="capture" id="capture-closer" style="margin-top:26px;">
           <form onsubmit="return meluSubmit(event,'capture-closer')">
-            <input type="text" name="name" required placeholder="Tu nombre" aria-label="Tu nombre" class="f-name" />
+            <div class="row f-names">
+              <input type="text" name="first_name" required placeholder="Nombre" aria-label="Nombre" />
+              <input type="text" name="last_name" required placeholder="Apellido" aria-label="Apellido" />
+            </div>
             <div class="row">
               <input type="email" name="email" required placeholder="tu@correo.com" aria-label="Tu correo" />
               <button type="submit" class="btn btn-accent">Quiero el recetario</button>
@@ -318,12 +324,13 @@
       e.preventDefault();
       var box=document.getElementById(id);
       var email=box.querySelector('input[name="email"]').value;
-      var nombre=box.querySelector('input[name="name"]').value;
+      var nombre=box.querySelector('input[name="first_name"]').value;
+      var apellido=box.querySelector('input[name="last_name"]').value;
       function done(){ box.classList.add('done'); }
       if(MELU_FORM_ENDPOINT){
-        var d=new FormData(); d.append('email_address', email); d.append('first_name', nombre);
+        var d=new FormData(); d.append('email_address', email); d.append('first_name', nombre); d.append('last_name', apellido);
         fetch(MELU_FORM_ENDPOINT,{method:'POST',body:d,mode:'no-cors'}).then(done).catch(done);
-      } else { console.log('[Melu] lead capturado (sin endpoint aún):', nombre, email); done(); }
+      } else { console.log('[Melu] lead capturado (sin endpoint aún):', nombre, apellido, email); done(); }
       return false;
     }
   </script>
