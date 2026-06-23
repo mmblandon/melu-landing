@@ -1,0 +1,758 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>El cuaderno del obrador — Melu</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='56' fill='none' stroke='%233E7B52' stroke-width='8'/%3E%3Cpath d='M34 84 V40 a3 3 0 0 1 5.4 -1.8 L60 66 L80.6 38.2 A3 3 0 0 1 86 40 V84' fill='none' stroke='%233E7B52' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <style>
+    :root {
+      --matcha:     #3E7B52;
+      --bosque:     #1A2D15;
+      --miel:       #E8C97A;
+      --terracota:  #D94F2B;
+      --menta:      #F4F7EF;
+      --brote:      #EAF3E0;
+      --matcha-deep:#2E5E3E;
+      --kraft:      #E9DEC4;
+      --cream:      #F7F2E4;
+      --fg-1:       #1A2D15;
+      --fg-2:       #46583F;
+      --fg-3:       #6E7E66;
+      --border:     rgba(26,45,21,0.13);
+      --font-d:     "Fraunces", Georgia, serif;
+      --font-b:     "DM Sans", system-ui, sans-serif;
+      --r-sm:       8px;
+      --r-md:       16px;
+      --shadow-sm:  0 1px 3px rgba(26,45,21,0.07);
+      --shadow-md:  0 6px 20px rgba(26,45,21,0.09);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-b);
+      background: var(--cream);
+      color: var(--fg-1);
+      font-size: 17px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Layout ─── */
+    .wrap { max-width: 740px; margin: 0 auto; padding: 0 24px; }
+
+    /* ─── Header ─── */
+    .site-header {
+      background: var(--bosque);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none;
+    }
+    .logo svg { width: 32px; height: 32px; }
+    .logo-name {
+      font-family: var(--font-d);
+      font-size: 1.3rem;
+      color: #fff;
+      letter-spacing: .01em;
+    }
+    .print-btn {
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,0.35);
+      color: rgba(255,255,255,0.85);
+      font-family: var(--font-b);
+      font-size: .8rem;
+      font-weight: 500;
+      padding: 7px 16px;
+      border-radius: 99px;
+      cursor: pointer;
+      letter-spacing: .03em;
+      transition: all .2s;
+    }
+    .print-btn:hover { border-color: #fff; color: #fff; }
+
+    /* ─── Welcome band ─── */
+    .welcome {
+      background: var(--matcha);
+      color: #fff;
+      padding: 48px 24px 44px;
+      text-align: center;
+    }
+    .welcome .eyebrow {
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      opacity: .75;
+      margin-bottom: 12px;
+    }
+    .welcome h1 {
+      font-family: var(--font-d);
+      font-size: clamp(1.9rem, 4vw, 2.6rem);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+    .welcome h1 em { font-style: italic; }
+    .welcome p {
+      font-size: 1rem;
+      opacity: .88;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* ─── Index strip ─── */
+    .index-strip {
+      background: var(--bosque);
+      padding: 16px 24px;
+    }
+    .index-strip ul {
+      max-width: 740px;
+      margin: 0 auto;
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 24px;
+    }
+    .index-strip a {
+      color: var(--miel);
+      font-size: .82rem;
+      font-weight: 500;
+      text-decoration: none;
+      letter-spacing: .02em;
+    }
+    .index-strip a:hover { text-decoration: underline; }
+
+    /* ─── Sections ─── */
+    .section {
+      padding: 56px 0 0;
+    }
+    .section:last-of-type { padding-bottom: 72px; }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--matcha-deep);
+      margin-bottom: 6px;
+    }
+    .section-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--matcha);
+      color: #fff;
+      font-size: .7rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .section > .wrap > h2 {
+      font-family: var(--font-d);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 400;
+      color: var(--bosque);
+      margin-bottom: 6px;
+      line-height: 1.25;
+    }
+    .section > .wrap > .subtitle {
+      color: var(--fg-3);
+      font-size: .95rem;
+      margin-bottom: 36px;
+    }
+
+    /* ─── Recipe card ─── */
+    .recipe {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      overflow: hidden;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-sm);
+    }
+    .recipe-head {
+      background: var(--brote);
+      padding: 22px 28px 18px;
+      border-bottom: 1px solid var(--border);
+    }
+    .recipe-head h3 {
+      font-family: var(--font-d);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--bosque);
+      margin-bottom: 4px;
+    }
+    .recipe-head .tagline {
+      font-size: .88rem;
+      color: var(--fg-3);
+      font-style: italic;
+    }
+    .recipe-body { padding: 24px 28px; }
+
+    .recipe-cols {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 28px;
+      margin-bottom: 20px;
+    }
+
+    .recipe h4 {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--matcha-deep);
+      margin-bottom: 10px;
+    }
+    .recipe ul, .recipe ol {
+      padding-left: 18px;
+      font-size: .92rem;
+      color: var(--fg-2);
+      line-height: 1.7;
+    }
+    .recipe ol { counter-reset: steps; list-style: none; padding-left: 0; }
+    .recipe ol li {
+      counter-increment: steps;
+      display: flex;
+      gap: 12px;
+      margin-bottom: 10px;
+      font-size: .92rem;
+      color: var(--fg-2);
+    }
+    .recipe ol li::before {
+      content: counter(steps);
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--matcha);
+      color: #fff;
+      font-size: .7rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    .obrador-note {
+      background: var(--kraft);
+      border-left: 3px solid var(--miel);
+      border-radius: 0 var(--r-sm) var(--r-sm) 0;
+      padding: 14px 18px;
+      font-size: .88rem;
+      color: var(--fg-2);
+      line-height: 1.6;
+    }
+    .obrador-note strong {
+      display: block;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--matcha-deep);
+      margin-bottom: 5px;
+    }
+
+    /* ─── Divider ─── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 36px 0;
+    }
+
+    /* ─── Errors section ─── */
+    .error-list { display: flex; flex-direction: column; gap: 16px; }
+    .error-item {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 20px 24px;
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 16px;
+      align-items: start;
+      box-shadow: var(--shadow-sm);
+    }
+    .error-num {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--terracota);
+      color: #fff;
+      font-family: var(--font-d);
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .error-content h4 {
+      font-family: var(--font-d);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--bosque);
+      margin-bottom: 5px;
+    }
+    .error-content p {
+      font-size: .9rem;
+      color: var(--fg-2);
+      line-height: 1.6;
+    }
+    .error-fix {
+      margin-top: 8px;
+      font-size: .82rem;
+      color: var(--matcha-deep);
+      font-weight: 600;
+    }
+    .error-fix::before { content: "→ "; }
+
+    /* ─── Prompt section ─── */
+    .prompt-card {
+      background: var(--bosque);
+      border-radius: var(--r-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+    .prompt-head {
+      padding: 22px 28px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .prompt-head h3 {
+      font-family: var(--font-d);
+      font-size: 1.15rem;
+      color: #fff;
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
+    .prompt-head p {
+      font-size: .85rem;
+      color: rgba(255,255,255,0.55);
+    }
+    .prompt-body { padding: 24px 28px; position: relative; }
+    .prompt-text {
+      font-family: "DM Mono", "Fira Code", "Courier New", monospace;
+      font-size: .85rem;
+      color: var(--miel);
+      line-height: 1.75;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .prompt-placeholder { color: rgba(232,201,122,0.45); font-style: italic; }
+    .copy-btn {
+      margin-top: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--matcha);
+      color: #fff;
+      border: none;
+      border-radius: 99px;
+      padding: 10px 22px;
+      font-family: var(--font-b);
+      font-size: .85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .copy-btn:hover { background: var(--matcha-deep); }
+    .copy-btn.copied { background: #2e7d5e; }
+
+    .prompt-tips {
+      margin-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 18px;
+    }
+    .prompt-tips p {
+      font-size: .82rem;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 8px;
+    }
+    .prompt-tips ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .prompt-tips li {
+      font-size: .82rem;
+      color: rgba(255,255,255,0.65);
+      padding-left: 16px;
+      position: relative;
+    }
+    .prompt-tips li::before {
+      content: "›";
+      position: absolute;
+      left: 0;
+      color: var(--miel);
+    }
+
+    /* ─── CTA footer ─── */
+    .cta-footer {
+      background: var(--matcha);
+      padding: 48px 24px;
+      text-align: center;
+      color: #fff;
+    }
+    .cta-footer h2 {
+      font-family: var(--font-d);
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      font-weight: 400;
+      margin-bottom: 10px;
+    }
+    .cta-footer p {
+      font-size: .95rem;
+      opacity: .82;
+      margin-bottom: 24px;
+    }
+    .cta-footer a {
+      display: inline-block;
+      background: #fff;
+      color: var(--matcha-deep);
+      font-family: var(--font-b);
+      font-weight: 600;
+      font-size: .95rem;
+      padding: 13px 28px;
+      border-radius: 99px;
+      text-decoration: none;
+      transition: opacity .2s;
+    }
+    .cta-footer a:hover { opacity: .9; }
+
+    /* ─── Mobile ─── */
+    @media (max-width: 600px) {
+      .recipe-cols { grid-template-columns: 1fr; gap: 16px; }
+      .recipe-body { padding: 18px 18px; }
+      .recipe-head { padding: 18px 18px 14px; }
+      .prompt-body { padding: 18px 18px; }
+      .site-header { padding: 16px 18px; }
+    }
+
+    /* ─── Print ─── */
+    @media print {
+      :root {
+        --bosque: #1A2D15;
+        --matcha: #3E7B52;
+        --matcha-deep: #2E5E3E;
+        --miel: #B08A3E;
+        --terracota: #C04030;
+        --cream: #FFFFFF;
+        --brote: #F4F9F0;
+        --kraft: #F3EDE0;
+        --fg-1: #1A2D15;
+        --fg-2: #2B3A22;
+        --fg-3: #4A5E40;
+        --border: rgba(26,45,21,0.2);
+      }
+      html, body { background: #fff; }
+      .site-header { background: #fff; border-bottom: 2px solid var(--bosque); }
+      .logo-name { color: var(--bosque); }
+      .print-btn, .index-strip, .copy-btn, .cta-footer { display: none; }
+      .welcome { background: #fff; color: var(--bosque); border-bottom: 2px solid var(--bosque); padding: 24px 0; }
+      .welcome .eyebrow, .welcome p { color: var(--fg-3); }
+      .prompt-card { background: #fff; border: 1.5px solid var(--bosque); color: var(--bosque); }
+      .prompt-head { border-bottom: 1px solid var(--border); }
+      .prompt-head h3 { color: var(--bosque); }
+      .prompt-head p { color: var(--fg-3); }
+      .prompt-text { color: var(--matcha-deep); }
+      .prompt-tips li, .prompt-tips p { color: var(--fg-3); }
+      .section, .recipe, .error-item { break-inside: avoid; page-break-inside: avoid; }
+      h2, h3 { break-after: avoid; page-break-after: avoid; }
+      a { color: var(--fg-1); text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <a class="logo" href="/">
+      <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="60" cy="60" r="56" fill="none" stroke="#3E7B52" stroke-width="8"/>
+        <path d="M34 84 V40 a3 3 0 0 1 5.4 -1.8 L60 66 L80.6 38.2 A3 3 0 0 1 86 40 V84" fill="none" stroke="#3E7B52" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="logo-name">melu</span>
+    </a>
+    <button class="print-btn" onclick="window.print()">Imprimir / Guardar PDF</button>
+  </header>
+
+  <!-- Welcome -->
+  <div class="welcome">
+    <p class="eyebrow">El cuaderno del obrador</p>
+    <h1>Ya tienes acceso.<br /><em>Empieza a hornear.</em></h1>
+    <p>Tres recetas reales del obrador, los errores más comunes del croissant, y un prompt listo para usar con IA. Todo lo que necesitas para tu próxima horneada.</p>
+  </div>
+
+  <!-- Index -->
+  <nav class="index-strip" aria-label="Contenido">
+    <ul>
+      <li><a href="#recetas">① Recetas del obrador</a></li>
+      <li><a href="#errores">② Errores del croissant</a></li>
+      <li><a href="#prompt">③ Tu prompt de panadería</a></li>
+    </ul>
+  </nav>
+
+  <!-- ─── SECTION 1: Recetas ─── -->
+  <section class="section" id="recetas">
+    <div class="wrap">
+      <p class="section-label"><span class="section-num">1</span> Recetas del obrador</p>
+      <h2>Las tres recetas de Melu</h2>
+      <p class="subtitle">Las mismas que usamos cada mañana. Sin atajos.</p>
+
+      <!-- Croissant -->
+      <div class="recipe">
+        <div class="recipe-head">
+          <h3>Croissant de mantequilla</h3>
+          <p class="tagline">Laminado a mano · 27 capas · el que sale del horno a las 8</p>
+        </div>
+        <div class="recipe-body">
+          <div class="recipe-cols">
+            <div>
+              <h4>Ingredientes (12 croissants)</h4>
+              <ul>
+                <li>500 g harina de fuerza</li>
+                <li>300 ml leche entera (tibia)</li>
+                <li>60 g azúcar</li>
+                <li>30 g mantequilla (para la masa)</li>
+                <li>10 g sal</li>
+                <li>7 g levadura seca</li>
+                <li>280 g mantequilla de calidad (laminado)</li>
+                <li>1 huevo + 1 yema (pintar)</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Proceso</h4>
+              <ol>
+                <li>Amasar todos los ingredientes excepto la mantequilla de laminado hasta obtener una masa lisa y elástica. Reposar 30 minutos en la nevera.</li>
+                <li>Preparar el bloque de mantequilla de laminado: golpear entre dos hojas de papel de horno hasta formar un cuadrado de 20×20 cm. Debe quedar fría pero flexible—se dobla sin romperse.</li>
+                <li>Encerrar el bloque de mantequilla en la masa. Dar 3 vueltas simples, con 30 minutos de reposo en la nevera entre cada una.</li>
+                <li>Estirar la masa, cortar triángulos y enrollar desde la base. Colocar en bandeja y fermentar 2–3 horas a temperatura ambiente hasta que estén esponjosos y "jiggling".</li>
+                <li>Pintar con huevo batido. Hornear a 200°C los primeros 10 minutos, luego bajar a 175°C otros 12–15 minutos hasta dorar bien.</li>
+              </ol>
+            </div>
+          </div>
+          <div class="obrador-note">
+            <strong>Nota del obrador</strong>
+            La temperatura de la mantequilla de laminado lo cambia todo. En cocinas calientes (más de 22°C) la mantequilla se derrite y las capas se mezclan—mete la masa en la nevera entre cada vuelta sin dudar. La señal de fermentación correcta: toca un croissant suavemente con el dedo, debe vibrar como gelatina. Si no se mueve, ya pasó el punto.
+          </div>
+        </div>
+      </div>
+
+      <!-- Masa madre -->
+      <div class="recipe">
+        <div class="recipe-head">
+          <h3>Masa madre de casa</h3>
+          <p class="tagline">Harina, agua, tiempo · el fermento que dura años</p>
+        </div>
+        <div class="recipe-body">
+          <div class="recipe-cols">
+            <div>
+              <h4>Para arrancarla (5 días)</h4>
+              <ul>
+                <li>Harina integral (arranque)</li>
+                <li>Harina de trigo blanca (refrescos)</li>
+                <li>Agua sin cloro a temperatura ambiente</li>
+                <li>Un frasco de cristal limpio</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Proceso</h4>
+              <ol>
+                <li><strong>Día 1:</strong> Mezclar 50 g de harina integral + 50 g de agua. Tapar con un trapo y dejar 24 horas a temperatura ambiente.</li>
+                <li><strong>Días 2–4:</strong> Descartar la mitad, añadir 50 g de harina blanca + 50 g de agua. Repetir cada 24 horas. Desde el día 3 deberías ver burbujas.</li>
+                <li><strong>Día 5:</strong> La masa madre está lista cuando sube al doble en 4–6 horas después de un refresco y huele a yogur o cerveza suave.</li>
+                <li>Para mantenerla activa: proporción 1:1:1 (starter:harina:agua) cada 24 horas fuera de la nevera, o una vez por semana dentro.</li>
+              </ol>
+            </div>
+          </div>
+          <div class="obrador-note">
+            <strong>Nota del obrador</strong>
+            El pico lo es todo. Úsala en el momento exacto en que llega a su punto más alto—la superficie pasa de convexa (abombada) a plana o ligeramente cóncava. Ese es el momento de más actividad. No tires el descarte: va perfecto en tortitas, crackers o pasta. Si huele a acetona muy fuerte o aparece moho de color, empieza de nuevo.
+          </div>
+        </div>
+      </div>
+
+      <!-- Cookie -->
+      <div class="recipe">
+        <div class="recipe-head">
+          <h3>Cookie de centro fundente</h3>
+          <p class="tagline">Centro fundente · sal en escamas · lista en una tarde</p>
+        </div>
+        <div class="recipe-body">
+          <div class="recipe-cols">
+            <div>
+              <h4>Ingredientes (16 cookies)</h4>
+              <ul>
+                <li>280 g harina todo uso</li>
+                <li>115 g mantequilla (temperatura ambiente)</li>
+                <li>150 g azúcar moreno</li>
+                <li>100 g azúcar blanco</li>
+                <li>2 huevos</li>
+                <li>1 cdita extracto de vainilla</li>
+                <li>340 g chocolate negro (70%+) en trozos</li>
+                <li>1 cdita sal fina + sal en escamas</li>
+                <li>1 cdita levadura química</li>
+                <li>½ cdita bicarbonato</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Proceso</h4>
+              <ol>
+                <li>Batir la mantequilla con ambos azúcares durante 3–4 minutos hasta blanquear y esponjar. Añadir los huevos de uno en uno, luego la vainilla.</li>
+                <li>Incorporar la harina, levadura, bicarbonato y sal. Mezclar justo hasta integrar—no sobrebatir.</li>
+                <li>Añadir el chocolate troceado. Cubrir la masa y dejar en la nevera mínimo 24 horas (48 horas es mejor).</li>
+                <li>Porcionar bolas de 80 g aprox. Hornear a 190°C durante 11–13 minutos. Sacar cuando los bordes están dorados pero el centro todavía se ve húmedo. Terminar con sal en escamas.</li>
+              </ol>
+            </div>
+          </div>
+          <div class="obrador-note">
+            <strong>Nota del obrador</strong>
+            El frío es el ingrediente secreto. 24–48 horas en la nevera hacen que el azúcar se hidrate mejor, el sabor se concentre y las cookies queden más gruesas. El centro húmedo al sacarlas del horno es intencional—el calor residual de la bandeja termina la cocción. Si las dejas hasta que el centro esté seco en el horno, quedan secas al enfriar.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 2: Errores ─── -->
+  <section class="section" id="errores">
+    <div class="wrap">
+      <p class="section-label"><span class="section-num">2</span> Errores del croissant</p>
+      <h2>Los 5 errores que arruinan tu croissant</h2>
+      <p class="subtitle">Los que vemos más en el obrador. Si algo salió mal, empieza aquí.</p>
+
+      <div class="error-list">
+        <div class="error-item">
+          <div class="error-num">1</div>
+          <div class="error-content">
+            <h4>La mantequilla demasiado fría o demasiado blanda</h4>
+            <p>Si la mantequilla está demasiado fría se rompe en trozos y no lamina—en vez de capas tendrás bolsas de grasa. Si está demasiado blanda se derrite en la masa y las capas desaparecen.</p>
+            <p class="error-fix">La mantequilla correcta se dobla sin quebrarse y deja una marca limpia al presionarla con el dedo. Si hace frío y está rígida, dale unos golpes suaves con el rodillo hasta que ceda.</p>
+          </div>
+        </div>
+        <div class="error-item">
+          <div class="error-num">2</div>
+          <div class="error-content">
+            <h4>Trabajar con la cocina caliente</h4>
+            <p>Por encima de 22°C la mantequilla empieza a fundirse durante el laminado y se mezcla con la masa. El resultado: croissants densos sin capas visibles.</p>
+            <p class="error-fix">En verano, refrigera la masa entre cada vuelta sin excepción. Si la masa empieza a resistirse o ves que la mantequilla asoma por los bordes, para y métela en frío 20 minutos.</p>
+          </div>
+        </div>
+        <div class="error-item">
+          <div class="error-num">3</div>
+          <div class="error-content">
+            <h4>Presionar demasiado fuerte con el rodillo</h4>
+            <p>El rodillo no aplana—estira. Presionar hacia abajo rompe las capas y pega la mantequilla con la masa en vez de separarlas.</p>
+            <p class="error-fix">Trabaja desde el centro hacia los extremos con movimientos largos y presión uniforme. Si la masa se encoge al estirarla, está tensa—déjala reposar 10 minutos antes de continuar.</p>
+          </div>
+        </div>
+        <div class="error-item">
+          <div class="error-num">4</div>
+          <div class="error-content">
+            <h4>Sobrefermentar o fermentar poco</h4>
+            <p>Con sobrefermentación las capas se pegan entre sí y el interior queda denso y apelmazado. Con fermentación insuficiente el croissant no sube y queda crudo por dentro.</p>
+            <p class="error-fix">La prueba del jiggle: mueve suavemente la bandeja. Los croissants deben vibrar como gelatina. Si no se mueven, fermentaron de más. Si están firmes y no han crecido, necesitan más tiempo.</p>
+          </div>
+        </div>
+        <div class="error-item">
+          <div class="error-num">5</div>
+          <div class="error-content">
+            <h4>Horno frío o sin precalentar bien</h4>
+            <p>El golpe de calor inicial (los primeros 10 minutos) es lo que crea el vapor que hace subir y abrir el croissant. Sin ese calor intenso, queda plano y sin el "oreja" característico.</p>
+            <p class="error-fix">Precalienta el horno mínimo 30 minutos antes. Empieza a temperatura alta (200–210°C) los primeros 10 minutos, luego baja a 175°C para terminar sin quemarse.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 3: Prompt ─── -->
+  <section class="section" id="prompt">
+    <div class="wrap">
+      <p class="section-label"><span class="section-num">3</span> Tu prompt de panadería</p>
+      <h2>Lleva a Melu contigo cuando hornees</h2>
+      <p class="subtitle">Copia este prompt en Claude o ChatGPT antes de empezar. Personaliza los corchetes y tendrás un asistente que entiende tu cocina.</p>
+
+      <div class="prompt-card">
+        <div class="prompt-head">
+          <h3>Prompt listo para copiar</h3>
+          <p>Funciona con Claude, ChatGPT, Gemini o cualquier IA conversacional</p>
+        </div>
+        <div class="prompt-body">
+          <pre class="prompt-text" id="prompt-text">Eres mi asistente de panadería francesa. Voy a hacerte preguntas mientras hornee en casa y necesito que me respondas de forma técnica pero práctica—como si fueras un panadero profesional que está en la cocina conmigo.
+
+Contexto sobre mi situación:
+- Horno: <span class="prompt-placeholder">[convección / convencional / gas]</span>
+- Temperatura de mi cocina: <span class="prompt-placeholder">[aprox. X°C]</span>
+- Mi nivel de panadería: <span class="prompt-placeholder">[principiante / intermedio / avanzado]</span>
+- Hoy voy a hacer: <span class="prompt-placeholder">[nombre de la receta]</span>
+
+Cómo quiero que trabajes conmigo:
+1. Si algo no me sale bien, hazme preguntas específicas para diagnosticar el problema antes de dar una solución.
+2. Dame rangos de temperatura y tiempo adaptados a mi tipo de horno.
+3. Explica el "por qué" detrás de cada técnica—quiero entender, no solo seguir pasos.
+4. Si me desvío de la receta, dime qué consecuencias tiene antes de corregirme.
+
+Empieza presentándote brevemente y preguntándome en qué receta vamos a trabajar hoy.</pre>
+
+          <button class="copy-btn" id="copy-btn" onclick="copiarPrompt()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copiar prompt
+          </button>
+
+          <div class="prompt-tips">
+            <p>Preguntas que puedes hacerle después:</p>
+            <ul>
+              <li>«Mi croissant no tiene capas—¿qué pudo salir mal?»</li>
+              <li>«Mi masa madre lleva 5 días y casi no tiene burbujas, ¿qué hago?»</li>
+              <li>«Mi cookie quedó plana en vez de gruesa, ¿por qué?»</li>
+              <li>«¿Cómo adapto esta receta a un horno de gas con calor solo abajo?»</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA footer -->
+  <div class="cta-footer">
+    <h2>¿Quieres aprender en el obrador?</h2>
+    <p>Cursos de panadería francesa con Melu—masa madre, laminado y fermentación lenta.</p>
+    <a href="/">Ver los cursos</a>
+  </div>
+
+  <script>
+    function copiarPrompt() {
+      var raw = "Eres mi asistente de panadería francesa. Voy a hacerte preguntas mientras hornee en casa y necesito que me respondas de forma técnica pero práctica—como si fueras un panadero profesional que está en la cocina conmigo.\n\nContexto sobre mi situación:\n- Horno: [convección / convencional / gas]\n- Temperatura de mi cocina: [aprox. X°C]\n- Mi nivel de panadería: [principiante / intermedio / avanzado]\n- Hoy voy a hacer: [nombre de la receta]\n\nCómo quiero que trabajes conmigo:\n1. Si algo no me sale bien, hazme preguntas específicas para diagnosticar el problema antes de dar una solución.\n2. Dame rangos de temperatura y tiempo adaptados a mi tipo de horno.\n3. Explica el \"por qué\" detrás de cada técnica—quiero entender, no solo seguir pasos.\n4. Si me desvío de la receta, dime qué consecuencias tiene antes de corregirme.\n\nEmpieza presentándote brevemente y preguntándome en qué receta vamos a trabajar hoy.";
+      navigator.clipboard.writeText(raw).then(function() {
+        var btn = document.getElementById('copy-btn');
+        btn.classList.add('copied');
+        btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> ¡Copiado!';
+        setTimeout(function() {
+          btn.classList.remove('copied');
+          btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar prompt';
+        }, 2500);
+      });
+    }
+  </script>
+</body>
+</html>
