@@ -318,19 +318,16 @@
   <script>
     (function(){ var t=document.getElementById('marq'),h=''; for(var i=0;i<24;i++){h+='<span style="color:'+(i%2?'var(--miel)':'var(--menta)')+'">melu</span>';} t.innerHTML=h; })();
 
-    // Pluggable email capture. Set MELU_FORM_ENDPOINT to your provider URL to POST for real.
-    var MELU_FORM_ENDPOINT = "";
+    var MELU_FORM_ENDPOINT = "https://app.kit.com/forms/9599121/subscriptions";
     function meluSubmit(e, id){
       e.preventDefault();
       var box=document.getElementById(id);
       var email=box.querySelector('input[name="email"]').value;
       var nombre=box.querySelector('input[name="first_name"]').value;
       var apellido=box.querySelector('input[name="last_name"]').value;
-      function done(){ box.classList.add('done'); }
-      if(MELU_FORM_ENDPOINT){
-        var d=new FormData(); d.append('email_address', email); d.append('first_name', nombre); d.append('last_name', apellido);
-        fetch(MELU_FORM_ENDPOINT,{method:'POST',body:d,mode:'no-cors'}).then(done).catch(done);
-      } else { console.log('[Melu] lead capturado (sin endpoint aún):', nombre, apellido, email); done(); }
+      function done(){ window.location.href = '/recetario'; }
+      var d=new FormData(); d.append('email_address', email); d.append('first_name', nombre); d.append('last_name', apellido);
+      fetch(MELU_FORM_ENDPOINT,{method:'POST',body:d,mode:'no-cors'}).then(done).catch(done);
       return false;
     }
   </script>
